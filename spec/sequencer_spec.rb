@@ -11,9 +11,10 @@ RSpec.describe Sequencer do
   it "handles movement of robot from instructions" do
     expect(subject.process([1,1, "E"], "F")).to eq [2, 1, "E"]
     expect(subject.process([1,1, "E"], "RFRFRFRF")).to eq [1, 1, "E"]
-    expect(subject.process([0,3, "W"], "LLFFFLLFL")).to eq [2, 3, "S"]
   end
 
-  # 3 2 N FRRFLLFFRRFLL
-  # 0 3 W
+  it "knows when a robot is lost" do
+    expect(subject.process([3,2, "N"], "FRRFLLFFRRFLL")).to eq [3, 3, "N", "LOST"]
+    # expect(subject.process([0,3, "W"], "LLFFFLFLFL")).to eq [2, 3, "S"] #
+  end
 end

@@ -1,19 +1,24 @@
 class Robot
-  attr_accessor :x, :y, :orientation
+  attr_accessor :x, :y, :orientation, :lost
+  attr_reader :environment
 
   ORIENTATIONS = %w[N E S W]
+  LOST = 'LOST'
 
-  def initialize(position)
+  def initialize(position, environment)
     @x            = position[0]
     @y            = position[1]
     @orientation  = position[2]
+    @environment  = environment
+    @lost         = nil
   end
 
   def to_array
-    [x, y, orientation]
+    [x, y, orientation, lost].compact
   end
 
   def move(move)
+    return if lost
     case move
     when "L"
       move_left
@@ -45,13 +50,28 @@ class Robot
   def move_forward
     case orientation
     when 'N'
-      self.y += 1
+      self.y += 1 if move_allowed?(x, y + 1)
     when 'E'
-      self.x += 1
+      self.x += 1 if move_allowed?(x + 1, y)
     when 'S'
-      self.y -= 1
+      self.y -= 1 if move_allowed?(x, y - 1)
     when 'W'
-      self.x -= 1
+      self.x -= 1 if move_allowed?(x - 1, y)
     end
   end
+
+  def move_allowed?(x, y)
+    move = environment.check_move(x, y)
+    if move.allowed
+       true
+    else
+      set_lost if move.lost
+      false
+    end
+  end
+
+  def set_lost
+    @lost = LOST
+  end
+
 end
