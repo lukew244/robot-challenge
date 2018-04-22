@@ -5,7 +5,7 @@ class Robot
   ORIENTATIONS = %w[N E S W]
   LOST = 'LOST'
 
-  def initialize(position, environment)
+  def initialize(position, environment = nil)
     @x            = position[0]
     @y            = position[1]
     @orientation  = position[2]
@@ -13,9 +13,16 @@ class Robot
     @lost         = nil
   end
 
-  def to_array
+  def position
     [x, y, orientation, lost].compact
   end
+
+  def process_moves(moves)
+    moves.map {|m| move(m) }
+    position
+  end
+
+  private
 
   def move(move)
     return if lost
@@ -28,8 +35,6 @@ class Robot
       move_forward
     end
   end
-
-  private
 
   def move_left
     if orientation == 'N'
@@ -61,6 +66,7 @@ class Robot
   end
 
   def move_allowed?(x, y)
+    return true if environment.nil?
     move = environment.check_move(x, y)
     if move.allowed
        true
@@ -73,5 +79,4 @@ class Robot
   def set_lost
     @lost = LOST
   end
-
 end
