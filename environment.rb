@@ -1,6 +1,5 @@
 class Environment
-  attr_accessor :lost_locations
-  attr_reader :upper_x, :upper_y
+  attr_reader :upper_x, :upper_y, :lost_locations
 
   def initialize(grid)
     @upper_x        = grid[0]
