@@ -1,4 +1,4 @@
-require "./simulator"
+require "./lib/simulator"
 
 RSpec.describe Simulator do
 

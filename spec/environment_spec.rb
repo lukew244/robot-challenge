@@ -1,4 +1,4 @@
-require "./environment"
+require "./lib/environment"
 
 RSpec.describe Environment do
   subject { described_class.new([5,3]) }

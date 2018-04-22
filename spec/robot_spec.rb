@@ -1,4 +1,4 @@
-require "./robot"
+require "./lib/robot"
 
 RSpec.describe Robot do
   subject { described_class.new([0,0, "N"]) }

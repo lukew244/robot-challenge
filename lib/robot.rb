@@ -77,6 +77,6 @@ class Robot
   end
 
   def set_lost
-    @lost = LOST
+    self.lost = LOST
   end
 end

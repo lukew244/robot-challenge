@@ -1,4 +1,3 @@
-require 'pry'
 require_relative './simulator'
 
 class Application
@@ -26,7 +25,7 @@ private
 
   def robot_input
     loop do
-      puts ' Please enter a start position for a robot, or type run:'
+      new_robot_message
       input = gets.chomp
       break if input.downcase == 'run'
       start_position = format_input(input)
@@ -51,6 +50,10 @@ private
 
   def is_number?(str)
     true if Integer(str) rescue false
+  end
+
+  def new_robot_message
+    puts 'Please enter a start position for a robot, or type run to begin the simulation:'
   end
 end
 
